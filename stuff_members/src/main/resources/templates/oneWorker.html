@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Workers</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #2a2400;
+        }
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffa400;
+        }
+        tr:nth-child(even) {
+            background-color: #ff7100;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center; color: #aa8f00;">All Employees</h1>
+<br>
+<div align="center">
+
+    <table>
+        <thead>
+        <tr>
+            <!--        <th>amount</th>-->
+            <th style="font-weight: bold;">Id</th>
+            <th style="font-weight: bold;">First Name</th>
+            <th style="font-weight: bold;">Last Name</th>
+            <th style="font-weight: bold;">Middle Name</th>
+            <th style="font-weight: bold;">Email</th>
+            <th style="font-weight: bold;">Phone</th>
+            <th style="font-weight: bold;">Personal Id</th>
+            <th style="font-weight: bold;">Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <br>
+        <div>
+            <form method="POST">
+                <label style="text-align: center; color: #aa8f00;">Start Date:</label>
+                <input type="date" name="start_date" value="${start_date ?: '2022-12-31'}"/>
+                <label style="text-align: center; color: #aa8f00;">End Date:</label>
+                <input type="date" name="end_date" value="${end_date ?: '2023-12-31'}" />
+                <input type="submit" value="Apply" />
+            </form>
+        </div>
+        <br>
+        <form th:method="GET" th:action="@{/addWorker}">
+            <input type="submit" value="New Worker"/>
+        </form>
+        <form th:method="GET" th:action="@{/allWorkers}">
+            <input type="submit" value="Refresh"/>
+        </form>
+        <br>
+        <!--    <form th:method="GET" th:action="@{/transactions/report}">-->
+        <!--        <input type="submit" value="Go to Report"/>-->
+        <!--    </form>-->
+
+        <!--/*@thymesVar id="transactions" type="java"*/-->
+        <tr>
+            <td> <a th:href="@{/getWorker/{id}(id=${Worker.getId()})}" th:text="${Worker.getId()}"></ath:text></a>Id</td>
+            <td th:text="${Worker.getFirstName()}">First Name</td>
+            <td th:text="${Worker.getLastName()}">Last Name</td>
+            <td th:text="${Worker.getMiddleName()}">Middle Name</td>
+            <td th:text="${Worker.getEmail()}">Email</td>
+            <td th:text="${Worker.getPhone()}">Phone</td>
+            <td th:text="${Worker.getPersonalId()}">Personal Id</td>
+            <td th:text="${Worker.getRole()}">Role</td>
+            <!--        <td>-->
+            <!--            <form th:method="POST" th:action="@{delete/{id}(id=${TAccTransaction.getId()})}">-->
+            <!--                <input type="submit" value="Delete" onclick="return confirm('Are you sure?');"/>-->
+            <!--            </form>-->
+            <!--        </td>-->
+            <td>
+                <form th:method="GET" th:action="@{edit/{id}(id=${Worker.getId()})}">
+                    <input type="submit" value="Update" onclick="return confirm('Are you sure?');"/>
+                </form>
+            </td>
+            <td>
+                <form th:method="GET" th:action="@{edit/{id}(id=${Worker.getId()})}">
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure?');"/>
+                </form>
+            </td>
+        </tr>
+        <br>
+        <!--    <a th:text="${sumOf_1210}"></a>-->
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
